@@ -1,3 +1,5 @@
+only run after qualifiers
+get cyrrebt year
 ## Current Features
 - Qualifying times
 - Number of circuit laps
