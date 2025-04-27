@@ -1,3 +1,4 @@
+run mkdir f1_cache
 only run after qualifiers
 get cyrrebt year
 ## Current Features
