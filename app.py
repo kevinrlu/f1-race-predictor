@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""
-F1 race‑time predictor  –  2025 season
-Uses only Qualifying + Race sessions for completed rounds.
+"""Lightweight F1 race‑time predictor (2025).
+
+Trains once on every completed round (Quali + Race) and publishes a
+position‑sorted table for the next Grand Prix as soon as FastF1 releases
+qualifying timing data.
 """
 # ─── IMPORTS ────────────────────────────────────────────────────────────────────
 from flask import Flask, render_template
@@ -18,7 +20,6 @@ from sklearn.model_selection import GroupShuffleSplit
 logging.getLogger("fastf1").setLevel(logging.ERROR)
 fastf1.Cache.enable_cache("f1_cache")      # disk cache
 YEAR = 2025
-API_COOLDOWN = 0.3                         # polite delay (s)
 
 lap_counts = {  # unchanged
     "Australian Grand Prix": 57,  "Chinese Grand Prix": 56,   "Japanese Grand Prix": 53,
@@ -79,7 +80,6 @@ def index():
             df["Laps"]  = lap_counts.get(gp, pd.NA)
             df["Event"] = gp
             frames.append(df)
-            time.sleep(API_COOLDOWN)
 
         data = pd.concat(frames).reset_index().rename(columns={"index": "Driver"})
         data = data.dropna(subset=["Quali_s", "Total_s"])
@@ -94,12 +94,11 @@ def index():
         # 4 ⇢ model ------------------------------------------------------------
         model = LinearRegression().fit(Xtr, ytr)
         mae_val = mean_absolute_error(yte, model.predict(Xte))
-        coef_quali, coef_laps = model.coef_
 
         # 5 ⇢ no upcoming race? ------------------------------------------------
         if upcoming.empty:
             return render_template("index.html",
-                                   gp_name="[Predictions appear only after the qualifying session finishes and FastF1 publishes timing data]",
+                                   gp_name="[no data]",
                                    upcoming_date="[Predictions appear only after the qualifying session finishes and FastF1 publishes timing data]",
                                    error=None,
                                    mae=f"{mae_val:.3f}",
@@ -144,7 +143,7 @@ def index():
     except Exception as err:
         return render_template(
             "index.html",
-            gp_name="[Predictions appear only after the qualifying session finishes and FastF1 publishes timing data]",
+            gp_name="[error]",
             upcoming_date="[Predictions appear only after the qualifying session finishes and FastF1 publishes timing data]",
             error=str(err),
             run_time=f"{time.time()-t0:.3f}"
