@@ -2,12 +2,12 @@
     F1 Race Predictions - Machine Learning Model
 </h1>
 <p align="center">
-   Find out predicted driver placements and race times for upcoming races using machine learning
+   Find out predicted driver placements and race times for upcoming races using machine learning.
 </p>
 
 ## Features
-
-
+- Qualifying times
+- Number of circuit laps
 
 ## Quick Start
 ### Prerequisites
@@ -37,39 +37,27 @@ python app.py
 
 ## Future Improvements
 
-## Current Features
-- Qualifying times
-- Number of circuit laps
-- Number of DRS zones
-
-## Future Improvements
-
-###Circuit Features
+### Circuit Features
   - Circuit type (street vs. permanent)
   - Direction (clockwise vs counterclockwise)
   - Number of turns
+ - Number of DRS zones
 
-###Race Context
+### Race Context
   - Weather (dry / wet)
   - If wet, rainfall amount during race (mm)
   - Temperatures (air and track °C)
   - Humidity (%)
-  - Tyre compound selection & stint lengths
-  - Tyre degradation
   - Wind speed and direction (km/h)
   - Number of pit stops and average pit-stop duration (s)
 
-###Model Enhancements 
+### Model Enhancements 
   - Try interaction or polynomial features  
   - Experiment with more powerful learners (e.g. XGBoost, LightGBM)
 
   tailwind and do something about html
 
-Incidents & DNFs
-– Driver’s season DNF rate
-– Team reliability (failures per race)
+https://f1-dash.com/dashboard
 
-6. Practice & Session Data
-FP1–FP3 metrics
-– Best lap times and consistency (std dev of lap times)
-– Long‑run pace (average lap time over 10‑lap stints)
+## Notice
+This project is unofficial and are not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V.
