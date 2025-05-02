@@ -7,18 +7,15 @@
 </head>
 <body>
   <h1>F1 Race Predictions for {{ gp_name }}</h1>
-  
 
   <p><strong>Race Date:</strong> {{ upcoming_date }}</p>
 
-  {# ── status & metrics ──────────────────────────────────────── #}
   {% if mae %}
     <p><strong>Historical Mean Absolute (MAE):</strong> {{ mae }}s</p>
   {% endif %}
 
   <p><strong>Model Load Time:</strong> {{ run_time }}s</p>
 
-  {# ── predictions table ─────────────────────────────────────── #}
   {% if preds %}
     <table>
       <tr>

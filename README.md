@@ -16,7 +16,9 @@
 - pandas==2.0.1
 - scikit-learn==1.2.2
 
-``` pip install -U -r requirements.txt```
+```python -m pip install --upgrade pip
+pip install --upgrade -r requirements.txt
+```
 
 ### Setup: NOTE PREDICTIONS ARE ONLY AVAILABLE AFTER RACE QUALIFIERS
 ```mkdir f1_cache
@@ -50,14 +52,13 @@ python app.py
   - Humidity (%)
   - Wind speed and direction (km/h)
   - Number of pit stops and average pit-stop duration (s)
+- tyer stuff
 
 ### Model Enhancements 
   - Try interaction or polynomial features  
   - Experiment with more powerful learners (e.g. XGBoost, LightGBM)
-
-  tailwind and do something about html
-
-https://f1-dash.com/dashboard
+ - tailwind and typescript
+- https://f1-dash.com/dashboard
 
 ## Notice
 This project is unofficial and are not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V.

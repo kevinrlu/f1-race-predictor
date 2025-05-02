@@ -19,14 +19,30 @@ CACHE_DIR = Path(__file__).parent / "f1_cache"
 fastf1.Cache.enable_cache(str(CACHE_DIR))  # disk cache
 YEAR = 2025
 LAP_COUNTS: dict[str, int] = {
-    "Australian Grand Prix": 57,  "Chinese Grand Prix": 56,   "Japanese Grand Prix": 53,
-    "Bahrain Grand Prix": 57,     "Saudi Arabian Grand Prix": 50,  "Miami Grand Prix": 57,
-    "Emilia Romagna Grand Prix": 63, "Monaco Grand Prix": 78, "Spanish Grand Prix": 66,
-    "Canadian Grand Prix": 70,    "Austrian Grand Prix": 71,  "British Grand Prix": 52,
-    "Belgian Grand Prix": 44,     "Hungarian Grand Prix": 70, "Dutch Grand Prix": 72,
-    "Italian Grand Prix": 53,     "Azerbaijan Grand Prix": 51, "Singapore Grand Prix": 61,
-    "United States Grand Prix": 56, "Mexican Grand Prix": 71,  "Brazilian Grand Prix": 71,
-    "Las Vegas Grand Prix": 50,   "Qatar Grand Prix": 57,     "Abu Dhabi Grand Prix": 55,
+    "Australian Grand Prix": 57,
+    "Chinese Grand Prix": 56,
+    "Japanese Grand Prix": 53,
+    "Bahrain Grand Prix": 57,
+    "Saudi Arabian Grand Prix": 50,
+    "Miami Grand Prix": 57,
+    "Emilia Romagna Grand Prix": 63,
+    "Monaco Grand Prix": 78,
+    "Spanish Grand Prix": 66,
+    "Canadian Grand Prix": 70,
+    "Austrian Grand Prix": 71,
+    "British Grand Prix": 52,
+    "Belgian Grand Prix": 44,
+    "Hungarian Grand Prix": 70,
+    "Dutch Grand Prix": 72,
+    "Italian Grand Prix": 53,
+    "Azerbaijan Grand Prix": 51,
+    "Singapore Grand Prix": 61,
+    "United States Grand Prix": 56,
+    "Mexican Grand Prix": 71,
+    "Brazilian Grand Prix": 71,
+    "Las Vegas Grand Prix": 50,
+    "Qatar Grand Prix": 57,
+    "Abu Dhabi Grand Prix": 55,
 }
 
 def create_app() -> Flask:
