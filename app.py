@@ -29,7 +29,6 @@ LAP_COUNTS: dict[str, int] = {
     "Las Vegas Grand Prix": 50,   "Qatar Grand Prix": 57,     "Abu Dhabi Grand Prix": 55,
 }
 
-
 def create_app() -> Flask:
     """Flask application factory."""
     app = Flask(__name__)
@@ -53,7 +52,6 @@ def create_app() -> Flask:
             )
 
     return app
-
 
 class RacePredictor:
     """Encapsulates data retrieval, model training, and prediction."""
