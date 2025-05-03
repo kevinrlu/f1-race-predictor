@@ -1,22 +1,25 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>F1 Race Predictor</title>
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body>
-  <h1>F1 Race Predictions for {{ gp_name }}</h1>
-
-  <p><strong>Race Date:</strong> {{ upcoming_date }}</p>
-
-  {% if mae %}
+  <head>
+    <meta charset="utf-8">
+    <title>F1 Race Predictor</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    {% if error %}
+    <h1><strong>{{ error }}</strong></h1>
+    {% endif %}
+    {% if gp_name %}
+    <h1>F1 Race Predictions for {{ gp_name }}</h1>
+    {% endif %}
+    {% if upcoming_date %}
+    <p><strong>Race Date:</strong> {{ upcoming_date }}</p>
+    {% endif %}
+    {% if mae %}
     <p><strong>Historical Mean Absolute (MAE):</strong> {{ mae }}s</p>
-  {% endif %}
-
-  <p><strong>Model Load Time:</strong> {{ run_time }}s</p>
-
-  {% if preds %}
+    {% endif %}
+    <p><strong>Model Load Time:</strong> {{ run_time }}s</p>
+    {% if preds %}
     <table>
       <tr>
         <th>POS</th>
@@ -25,16 +28,14 @@
         <th>PREDICTED TIME</th>
       </tr>
       {% for row in preds %}
-        <tr>
-          <td>{{ row.Pos }}</td>
-          <td>{{ row.Driver }}</td>
-          <td>{{ row.Team or '—' }}</td>
-          <td>{{ row.PredictedTime }}</td>
-        </tr>
+      <tr>
+        <td>{{ row.Pos }}</td>
+        <td>{{ row.Driver }}</td>
+        <td>{{ row.Team or '—' }}</td>
+        <td>{{ row.PredictedTime }}</td>
+      </tr>
       {% endfor %}
     </table>
-  {% elif not error %}
-    <p>No predictions available.</p>
-  {% endif %}
-</body>
+    {% endif %}
+  </body>
 </html>

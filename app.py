@@ -1,8 +1,6 @@
-#!/usr/bin/env python3
-"""Refactored F1 race‑time predictor (2025) following clean code principles."""
 import logging
 import time
-from datetime import date
+from datetime import datetime, date
 from functools import lru_cache
 from pathlib import Path
 
@@ -13,11 +11,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import GroupShuffleSplit
 
-# ─── CONFIG ────────────────────────────────────────────────────────────────────
 logging.getLogger("fastf1").setLevel(logging.ERROR)
 CACHE_DIR = Path(__file__).parent / "f1_cache"
-fastf1.Cache.enable_cache(str(CACHE_DIR))  # disk cache
-YEAR = 2025
+fastf1.Cache.enable_cache(str(CACHE_DIR))
+YEAR = datetime.now().year
 LAP_COUNTS: dict[str, int] = {
     "Australian Grand Prix": 57,
     "Chinese Grand Prix": 56,
@@ -45,8 +42,8 @@ LAP_COUNTS: dict[str, int] = {
     "Abu Dhabi Grand Prix": 55,
 }
 
+
 def create_app() -> Flask:
-    """Flask application factory."""
     app = Flask(__name__)
 
     @app.route("/")
@@ -58,20 +55,16 @@ def create_app() -> Flask:
             context["run_time"] = f"{time.time() - start_time:.3f}"
             return render_template("index.html", **context)
         except Exception as err:
-            # Centralized error handling
             return render_template(
                 "index.html",
-                gp_name="[Predictions appear only after the qualifying session finishes and FastF1 publishes timing data]",
-                upcoming_date="[Predictions appear only after the qualifying session finishes and FastF1 publishes timing data]",
-                error=str(err),
-                run_time=f"{time.time() - start_time:.3f}"
+                error="⚠️ Predictions will be available only after the qualifying session ends AND FastF1 publishes the timing data ⚠️",
+                run_time=f"{time.time() - start_time:.3f}",
             )
 
     return app
 
-class RacePredictor:
-    """Encapsulates data retrieval, model training, and prediction."""
 
+class RacePredictor:
     def __init__(self, year: int, lap_counts: dict[str, int]) -> None:
         self.year = year
         self.lap_counts = lap_counts
@@ -80,20 +73,8 @@ class RacePredictor:
         schedule = self._get_schedule()
         past, upcoming = self._split_races(schedule)
 
-        if past.empty:
-            raise ValueError("No past races to train on.")
-
         training_df = self._build_training_data(past)
         model, mae = self._train_model(training_df)
-
-        if upcoming.empty:
-            return {
-                "gp_name": "[Predictions appear only after the qualifying session finishes and FastF1 publishes timing data]",
-                "upcoming_date": "[Predictions appear only after the qualifying session finishes and FastF1 publishes timing data]",
-                "mae": f"{mae:.3f}",
-                "error": None,
-                "preds": []
-            }
 
         return self._predict_next(upcoming.iloc[0], model, mae)
 
@@ -115,7 +96,6 @@ class RacePredictor:
 
     @lru_cache(maxsize=None)
     def _race_frame(self, gp: str) -> pd.DataFrame:
-        # Cache individual race data to avoid redundant FastF1 calls
         q = _fetch_times(self.year, gp, "Q").rename("Quali_s")
         r = _fetch_times(self.year, gp, "R").rename("Total_s")
         df = pd.concat([q, r], axis=1)
@@ -132,17 +112,17 @@ class RacePredictor:
         mae = mean_absolute_error(y.iloc[test_idx], model.predict(X.iloc[test_idx]))
         return model, mae
 
-    def _predict_next(self, race_info: pd.Series, model: LinearRegression, mae: float) -> dict:
+    def _predict_next(
+        self, race_info: pd.Series, model: LinearRegression, mae: float
+    ) -> dict:
         gp = race_info["EventName"]
         date_iso = race_info["Date"].isoformat()
         laps = self.lap_counts.get(gp)
 
-        # Prepare qualifying data
         q_series = _fetch_times(self.year, gp, "Q")
         X_next = pd.DataFrame({"Quali_s": q_series, "Laps": laps})
         preds_seconds = model.predict(X_next)
 
-        # Map driver info
         session = fastf1.get_session(self.year, gp, "Q")
         session.load(laps=True, telemetry=False, weather=False, messages=False)
         name_map = _map_abbr_to_fullname(session)
@@ -153,7 +133,7 @@ class RacePredictor:
             .assign(
                 PredictedTime=lambda df: df["Pred_s"].apply(_format_hms),
                 Driver=lambda df: df["DriverCode"].map(name_map),
-                Team=lambda df: df["DriverCode"].map(team_map)
+                Team=lambda df: df["DriverCode"].map(team_map),
             )
             .sort_values("Pred_s")
             .reset_index(drop=True)
@@ -164,13 +144,14 @@ class RacePredictor:
             "gp_name": gp,
             "upcoming_date": date_iso,
             "mae": f"{mae:.3f}",
-            "preds": preds_df[["Pos", "Driver", "Team", "PredictedTime"]].to_dict("records"),
-            "error": None
+            "preds": preds_df[["Pos", "Driver", "Team", "PredictedTime"]].to_dict(
+                "records"
+            ),
+            "error": None,
         }
 
 
 def _fetch_times(year: int, gp: str, session_type: str) -> pd.Series:
-    """Fetch fastest lap (Q) or total race time (R) per driver."""
     sess = fastf1.get_session(year, gp, session_type)
     sess.load(laps=True, telemetry=False, weather=False, messages=False)
     laps = sess.laps.dropna(subset=["Driver", "LapTime"])
@@ -189,9 +170,7 @@ def _map_abbr_to_fullname(session) -> dict[str, str]:
 
 def _map_driver_to_team(session) -> dict[str, str]:
     df = (
-        session.laps
-        .dropna(subset=["Driver", "Team"])
-        [["Driver", "Team"]]
+        session.laps.dropna(subset=["Driver", "Team"])[["Driver", "Team"]]
         .drop_duplicates()
         .set_index("Driver")["Team"]
     )
@@ -206,4 +185,4 @@ def _format_hms(seconds: float) -> str:
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(debug=True)  # Consider disabling debug in production
+    app.run(debug=True)

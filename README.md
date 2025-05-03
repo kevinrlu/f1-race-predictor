@@ -11,10 +11,10 @@
 
 ## Quick Start
 ### Prerequisites
-- Flask==2.2.5
-- fastf1==2.3.1
-- pandas==2.0.1
-- scikit-learn==1.2.2
+- fastf1==3.5.3
+- Flask==3.1.0
+- pandas==2.2.3
+- scikit-learn==1.6.1
 
 ```python -m pip install --upgrade pip
 pip install --upgrade -r requirements.txt
@@ -39,6 +39,8 @@ python app.py
 
 ## Future Improvements
 
+### Site
+- Improve ui, ux
 ### Circuit Features
   - Circuit type (street vs. permanent)
   - Direction (clockwise vs counterclockwise)
@@ -52,7 +54,7 @@ python app.py
   - Humidity (%)
   - Wind speed and direction (km/h)
   - Number of pit stops and average pit-stop duration (s)
-- tyer stuff
+- tyre stuff
 
 ### Model Enhancements 
   - Try interaction or polynomial features  
@@ -61,4 +63,4 @@ python app.py
 - https://f1-dash.com/dashboard
 
 ## Notice
-This project is unofficial and are not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V.
+This project is unofficial and is not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V.
