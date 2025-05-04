@@ -3,7 +3,6 @@ import time
 from datetime import datetime, date
 from functools import lru_cache
 from pathlib import Path
-
 import fastf1
 import pandas as pd
 from flask import Flask, render_template

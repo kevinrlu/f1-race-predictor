@@ -57,10 +57,8 @@ python app.py
 - tyre stuff
 
 ### Model Enhancements 
-  - Try interaction or polynomial features  
-  - Experiment with more powerful learners (e.g. XGBoost, LightGBM)
- - tailwind and typescript
-- https://f1-dash.com/dashboard
+  - Implement more relevent models (random forest, gradient boosting)
+  - Utilize more powerful learners (XGBoost, LightGBM)
 
 ## Notice
 This project is unofficial and is not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V.

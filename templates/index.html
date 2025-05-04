@@ -16,9 +16,9 @@
     <p><strong>Race Date:</strong> {{ upcoming_date }}</p>
     {% endif %}
     {% if mae %}
-    <p><strong>Historical Mean Absolute (MAE):</strong> {{ mae }}s</p>
+    <p><strong>Historical Mean Absolute Error (MAE):</strong> {{ mae }}s</p>
     {% endif %}
-    <p><strong>Model Load Time:</strong> {{ run_time }}s</p>
+    <p><strong>Model Run Time:</strong> {{ run_time }}s</p>
     {% if preds %}
     <table>
       <tr>
