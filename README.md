@@ -5,6 +5,9 @@
    Find out predicted driver placements and race times for upcoming races using machine learning.
 </p>
 
+## Important
+Predictions will be available only after the qualifying session ends AND FastF1 publishes the data
+
 ## Features
 - Qualifying times
 - Number of circuit laps

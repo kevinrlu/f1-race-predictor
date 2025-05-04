@@ -71,11 +71,11 @@ class RacePredictor:
         past, upcoming = self._split_schedule(schedule)
 
         if upcoming.empty:
-            raise ValueError("No upcoming races found.")
+            raise ValueError("No upcoming races found")
 
         training_data = self._assemble_training_data(past)
         if training_data.empty:
-            raise ValueError("No valid past training data available.")
+            raise ValueError("No valid past training data available")
 
         model, mae = self._train_model(training_data)
         return self._predict_next(upcoming.iloc[0], model, mae)
@@ -124,7 +124,7 @@ class RacePredictor:
 
         q_times = _fetch_times(self.year, gp, "Q")
         if q_times.empty:
-            raise ValueError("No qualifying data available.")
+            raise ValueError("No qualifying data available")
 
         X_next = pd.DataFrame({
             "Quali_s": q_times,
