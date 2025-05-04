@@ -55,7 +55,7 @@ def create_app() -> Flask:
         except Exception as err:
             return render_template(
                 "index.html",
-                error="⚠️ Predictions will be available only after the qualifying session ends AND FastF1 publishes the timing data ⚠️",
+                error="⚠️ Predictions will be available only after the qualifying session ends AND FastF1 publishes the data ⚠️",
                 run_time=f"{time.time() - start_time:.3f}",
             )
 
