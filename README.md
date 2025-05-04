@@ -6,7 +6,7 @@
 </p>
 
 ## Important
-Predictions will be available only after the qualifying session ends AND FastF1 publishes the data
+Predictions will be available only after the qualifying session ends AND FastF1 publishes the data.
 
 ## Features
 - Number of circuit laps
@@ -19,11 +19,13 @@ Predictions will be available only after the qualifying session ends AND FastF1 
 - pandas==2.2.3
 - scikit-learn==1.6.1
 
-```pip install --upgrade -r requirements.txt
+```
+pip install --upgrade -r requirements.txt
 ```
 
 ### Setup
-```mkdir f1_cache
+```
+mkdir f1_cache
 python app.py
 ```
 
