@@ -41,7 +41,6 @@ LAP_COUNTS: dict[str, int] = {
     "Abu Dhabi Grand Prix": 55,
 }
 
-
 def create_app() -> Flask:
     app = Flask(__name__)
 
@@ -61,7 +60,6 @@ def create_app() -> Flask:
             )
 
     return app
-
 
 class RacePredictor:
     def __init__(self, year: int, lap_counts: dict[str, int]) -> None:
@@ -149,7 +147,6 @@ class RacePredictor:
             "error": None,
         }
 
-
 def _fetch_times(year: int, gp: str, session_type: str) -> pd.Series:
     sess = fastf1.get_session(year, gp, session_type)
     sess.load(laps=True, telemetry=False, weather=False, messages=False)
@@ -158,14 +155,12 @@ def _fetch_times(year: int, gp: str, session_type: str) -> pd.Series:
     times = grouped.min() if session_type == "Q" else grouped.sum()
     return times.dt.total_seconds()
 
-
 def _map_abbr_to_fullname(session) -> dict[str, str]:
     return {
         info["Abbreviation"]: info["FullName"]
         for drv in session.drivers
         if (info := session.get_driver(drv)) is not None
     }
-
 
 def _map_driver_to_team(session) -> dict[str, str]:
     df = (
@@ -175,12 +170,10 @@ def _map_driver_to_team(session) -> dict[str, str]:
     )
     return df.to_dict()
 
-
 def _format_hms(seconds: float) -> str:
     h, rem = divmod(seconds, 3600)
     m, s = divmod(rem, 60)
     return f"{int(h)}:{int(m):02d}:{s:06.3f}"
-
 
 if __name__ == "__main__":
     app = create_app()
