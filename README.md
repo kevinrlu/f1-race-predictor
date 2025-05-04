@@ -9,8 +9,8 @@
 Predictions will be available only after the qualifying session ends AND FastF1 publishes the data
 
 ## Features
-- Qualifying times
 - Number of circuit laps
+- Qualifying times
 
 ## Quick Start
 ### Prerequisites
@@ -19,11 +19,10 @@ Predictions will be available only after the qualifying session ends AND FastF1 
 - pandas==2.2.3
 - scikit-learn==1.6.1
 
-```python -m pip install --upgrade pip
-pip install --upgrade -r requirements.txt
+```pip install --upgrade -r requirements.txt
 ```
 
-### Setup: NOTE PREDICTIONS ARE ONLY AVAILABLE AFTER RACE QUALIFIERS
+### Setup
 ```mkdir f1_cache
 python app.py
 ```
@@ -42,22 +41,23 @@ python app.py
 
 ## Future Improvements
 
-### Site
-- Improve ui, ux
+### Website
+- Improve UI and UX
+
 ### Circuit Features
-  - Circuit type (street vs. permanent)
-  - Direction (clockwise vs counterclockwise)
-  - Number of turns
- - Number of DRS zones
+- Circuit type (road and street)
+- Direction (clockwise and counterclockwise)
+- Number of DRS zones
+- Number of turns
 
 ### Race Context
-  - Weather (dry / wet)
-  - If wet, rainfall amount during race (mm)
-  - Temperatures (air and track °C)
-  - Humidity (%)
-  - Wind speed and direction (km/h)
-  - Number of pit stops and average pit-stop duration (s)
-- tyre stuff
+- Humidity (%)
+- If wet, rainfall amount during the race (mm)
+- Number of pit stops and average pit-stop duration (s)
+- Temperatures (air and track °C)
+- Tyres (tyre compound, tyre degradation, and tyre temperature)
+- Weather (dry and wet)
+- Wind speed and direction (km/h)
 
 ### Model Enhancements 
   - Implement more relevent models (random forest, gradient boosting)
