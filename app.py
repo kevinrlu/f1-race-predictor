@@ -10,7 +10,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import GroupShuffleSplit
 
-logging.getLogger("fastf1").setLevel(logging.ERROR)
+logging.getLogger("fastf1").setLevel(logging.WARNING)
 CACHE_DIR = Path(__file__).parent / "f1_cache"
 fastf1.Cache.enable_cache(str(CACHE_DIR))
 YEAR = datetime.now().year
