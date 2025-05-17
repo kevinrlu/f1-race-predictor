@@ -53,8 +53,8 @@ def create_app() -> Flask:
         except Exception:
             context = {
                 "error": (
-                    "⚠️ Predictions will be available only after the qualifying "
-                    "session ends AND FastF1 publishes the data ⚠️"
+                    "👅👅👅⚠️ Predictions will be available only after the qualifying "
+                    "session ends AND FastF1 publishes the data ⚠️👅👅👅"
                 )
             }
         context["run_time"] = f"{time.time() - start_time:.3f}"
